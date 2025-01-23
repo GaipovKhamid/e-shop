@@ -2,6 +2,8 @@ package com.e_commerce.e_commerce.Login;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface AuthService {
     AuthDTO createUser(AuthDTO authDTO);
@@ -9,4 +11,6 @@ public interface AuthService {
     AuthDTO updateUser(Long id, AuthDTO authDTO);
 
     void deleteUser(Long id);
+
+    List<AuthDTO> getUsers();
 }

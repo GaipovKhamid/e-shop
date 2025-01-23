@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping("/api")
 @RestController("test123")
 public class AuthController {
@@ -27,5 +29,12 @@ public class AuthController {
         authService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<AuthDTO>> getAll() {
+        return ResponseEntity.ok(authService.getUsers());
+    }
+
+
 
 }

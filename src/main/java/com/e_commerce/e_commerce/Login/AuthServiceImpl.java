@@ -6,6 +6,8 @@ import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,7 +23,6 @@ public class AuthServiceImpl implements AuthService {
         if (loginRepository.existsByEmail(authDTO.getEmail())) {
             throw new DuplicateException("Email already in use");
         }
-
 
         AuthEntity entity = new AuthEntity();
         entity.setEmail(authDTO.getEmail());
@@ -76,4 +77,17 @@ public class AuthServiceImpl implements AuthService {
         loginRepository.save(entity);
     }
 
+    @Override
+    public List<AuthDTO> getUsers() {
+        Iterable<AuthEntity> iterator = loginRepository.findAll(); //iterable = for each da aylantirish uchun royihatni retunr atadi
+        List<AuthDTO> list = new LinkedList<>();
+        for (AuthEntity entity : iterator) {
+            AuthDTO dto = new AuthDTO();
+            dto.setId(entity.getId());
+            dto.setEmail(entity.getEmail());
+            dto.setPassword(entity.getPassword());
+            list.add(dto);
+        }
+        return list;
+    }
 }
