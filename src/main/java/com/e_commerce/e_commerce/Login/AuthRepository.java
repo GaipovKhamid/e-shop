@@ -11,5 +11,4 @@ public interface AuthRepository extends CrudRepository<AuthEntity, Integer> {
 
     Optional<AuthEntity> findById(Long id);
 
-    //jpa query todo
 }
