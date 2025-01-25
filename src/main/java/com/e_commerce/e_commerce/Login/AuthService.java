@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface AuthService {
     AuthDTO createUser(AuthDTO authDTO);
 
@@ -13,4 +12,6 @@ public interface AuthService {
     void deleteUser(Long id);
 
     List<AuthDTO> getUsers();
+
+    boolean signIn(AuthDTO authDTO);
 }

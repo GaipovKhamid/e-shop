@@ -11,4 +11,5 @@ public interface AuthRepository extends CrudRepository<AuthEntity, Integer> {
 
     Optional<AuthEntity> findById(Long id);
 
+    Optional<AuthEntity> findByEmail(String email);
 }
