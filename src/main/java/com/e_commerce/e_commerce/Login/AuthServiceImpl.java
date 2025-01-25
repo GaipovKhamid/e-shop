@@ -3,7 +3,10 @@ package com.e_commerce.e_commerce.Login;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
+import com.e_commerce.e_commerce.exceptions.Successful;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -90,4 +93,20 @@ public class AuthServiceImpl implements AuthService {
         }
         return list;
     }
+
+    @Override
+    public boolean signIn(AuthDTO authDTO) {
+        AuthEntity loginEntity;
+        loginEntity = loginRepository.findByEmail(authDTO.getEmail()).orElseThrow(() -> new ResourceNotFoundException("Email not found"));
+
+        if (StringUtils.hasText(loginEntity.getEmail()) && loginEntity.getEmail().equals(authDTO.getEmail())) {
+            if (StringUtils.hasText(loginEntity.getPassword()) && loginEntity.getPassword().equals(authDTO.getPassword())) {
+                throw new Successful("Login successful");
+            } else {
+                throw new BadRequestException("Passwords do not match");
+            }
+        }
+        throw new BadRequestException("Invalid email or password");
+    }
+
 }

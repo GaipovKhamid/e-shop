@@ -35,6 +35,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.getUsers());
     }
 
+    @PostMapping("/signIn")
+    public ResponseEntity<Boolean> signIn(@RequestBody AuthDTO authDTO) {
+        return ResponseEntity.ok(authService.signIn(authDTO));
+    }
 
 
 }

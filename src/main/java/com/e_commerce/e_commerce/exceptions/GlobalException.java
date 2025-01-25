@@ -25,4 +25,10 @@ public class GlobalException {
         var error = new ErrorResponse(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(Successful.class)
+    public ResponseEntity<ErrorResponse> handlerSuccessful(Successful e) {
+        var error = new ErrorResponse(e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.OK);
+    }
 }
