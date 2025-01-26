@@ -28,7 +28,6 @@ public class ProductsServiceImpl implements ProductsService {
         productsEntity.setProductName(productsDTO.getProductName());
         productsEntity.setPrice(productsDTO.getPrice());
         productsEntity.setQuantity(productsDTO.getQuantity());
-        productsEntity.setCategory(productsDTO.getCategory());
         productsEntity.setCreatedAt(LocalDateTime.now());
 
 
@@ -58,7 +57,6 @@ public class ProductsServiceImpl implements ProductsService {
         entity.setProductName(productsDTO.getProductName());
         entity.setPrice(productsDTO.getPrice());
         entity.setQuantity(productsDTO.getQuantity());
-        entity.setCategory(productsDTO.getCategory());
         entity.setUpdatedAt(LocalDateTime.now());
 
         if (productsRepository.existsByProductName(productsDTO.getProductName())) {
@@ -93,7 +91,6 @@ public class ProductsServiceImpl implements ProductsService {
             dto.setProductName(entity.getProductName());
             dto.setPrice(entity.getPrice());
             dto.setQuantity(entity.getQuantity());
-            dto.setCategory(entity.getCategory());
 
             list.add(dto);
         }

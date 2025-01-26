@@ -1,13 +1,10 @@
 package com.e_commerce.e_commerce.products;
 
-import com.e_commerce.e_commerce.category.CategoryEnums;
-
 public class ProductsDTO {
     private Long id;
     private String productName;
     private Double price;
     private Long quantity;
-    private CategoryEnums category;
 
     public Long getId() {
         return id;
@@ -41,11 +38,4 @@ public class ProductsDTO {
         this.quantity = quantity;
     }
 
-    public CategoryEnums getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEnums category) {
-        this.category = category;
-    }
 }
