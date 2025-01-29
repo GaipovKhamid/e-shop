@@ -1,6 +1,7 @@
 package com.e_commerce.e_commerce.products;
 
 
+import com.e_commerce.e_commerce.Category.CategoryEntity;
 import com.e_commerce.e_commerce.common.BaseEntity;
 import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,6 +22,18 @@ public class ProductsEntity extends BaseEntity {
 
     @Column
     private Long quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -54,4 +67,14 @@ public class ProductsEntity extends BaseEntity {
         this.quantity = quantity;
     }
 
+    public ProductsEntity() {
+    }
+
+    public ProductsEntity(Long id, String productName, Double price, Long quantity, CategoryEntity category) {
+        this.id = id;
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+    }
 }

@@ -2,6 +2,8 @@ package com.e_commerce.e_commerce.products;
 
 import com.e_commerce.e_commerce.Login.AuthDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,11 @@ public class ProductsController {
     @GetMapping("/all")
     public ResponseEntity<List<ProductsDTO>> getAllProducts() {
         return ResponseEntity.ok(productsService.getUsers());
+    }
+
+    @GetMapping("/all-page")
+    public ResponseEntity<Page<ProductsDTO>> getAllProductsPage(Pageable pageable) {
+        return ResponseEntity.ok(productsService.getProducts(pageable));
     }
 
     @PutMapping("/update/{id}")
