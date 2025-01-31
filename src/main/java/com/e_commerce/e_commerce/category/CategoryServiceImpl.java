@@ -3,6 +3,7 @@ package com.e_commerce.e_commerce.Category;
 import com.e_commerce.e_commerce.Login.AuthEntity;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
+import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +64,13 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryDTO;
 
+    }
+
+    @Override
+    public CategoryEntity findById(Long id) {
+
+        return categoryRepository.findByIdAndDeletedAtIsNull(id)
+                .orElseThrow(()-> new ResourceNotFoundException(id.toString()));
     }
 
     @Override

@@ -18,18 +18,16 @@ public interface ProductsRepository extends JpaRepository<ProductsEntity, Long> 
 
     List<ProductsEntity> findAllByDeletedAtIsNull();
 
-//    @Query("""
-//            select new com.e_commerce.e_commerce.products.ProductsDTO(
-//            product.id,
-//            product.productName,
-//            product.category.id,
-//            product.category.name
-//            )
-//            from ProductEntity product
-//            where product.deletedAt is null
-//            """)
-//    Page<ProductsDTO> getPagetest(Pageable pageable);
+    @Query("""
+            select new com.e_commerce.e_commerce.products.ProductsDTO(
+            product.id,
+            product.productName,
+            product.category.id,
+            product.category.name
+            ) 
+            from ProductsEntity product
+            where product.deletedAt is null
+            """)
+    Page<ProductsDTO> getPagetest(Pageable pageable);
 
-    @Query("select c from ProductEntity c where c.deletedAt is null")
-    Page<ProductsEntity> getPa(Pageable pageable);
 }

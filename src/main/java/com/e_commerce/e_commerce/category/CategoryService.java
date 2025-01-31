@@ -12,5 +12,7 @@ public interface CategoryService {
 
     CategoryDTO update(Long id, CategoryDTO categoryDTO);
 
+    CategoryEntity findById(Long id);
+
     void delete(Long id);
 }

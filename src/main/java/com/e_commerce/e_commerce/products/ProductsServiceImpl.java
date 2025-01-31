@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class ProductsServiceImpl implements ProductsService {
@@ -57,16 +55,18 @@ public class ProductsServiceImpl implements ProductsService {
         return null;
     }
 
+    //map set list
+
     @Override
     public ProductsDTO updateProduct(Long id, ProductsDTO productsDTO) {
-        ProductsEntity entity = productsRepository.findByIdAndDeletedAtIsNull(id).orElseThrow(()->new ResourceNotFoundException(id.toString()));
+        ProductsEntity entity = productsRepository.findByIdAndDeletedAtIsNull(id).orElseThrow(() -> new ResourceNotFoundException(id.toString()));
 
 
         entity.setProductName(productsDTO.getProductName());
         entity.setPrice(productsDTO.getPrice());
         entity.setQuantity(productsDTO.getQuantity());
         entity.setUpdatedAt(LocalDateTime.now());
-        if (productsDTO.getCategoryId()!=null){
+        if (productsDTO.getCategoryId() != null) {
             entity.setCategory(categoryService.findById(productsDTO.getCategoryId()));
         }
         if (productsRepository.existsByProductName(productsDTO.getProductName())) {
@@ -81,12 +81,8 @@ public class ProductsServiceImpl implements ProductsService {
 
     @Override
     public void deleteUser(Long id) {
-        Optional<ProductsEntity> optional = productsRepository.findById(id);
-        if (optional.get().getDeletedAt() != null) {
-            throw new BadRequestException("This product has been deleted");
-        }//////// todo changed
+        ProductsEntity entity = productsRepository.findByIdAndDeletedAtIsNull(id).orElseThrow(() -> new ResourceNotFoundException(id.toString()));
 
-        ProductsEntity entity = optional.get();
         entity.setDeletedAt(LocalDateTime.now());
         productsRepository.save(entity);
     }

@@ -13,5 +13,6 @@ public interface AuthService {
 
     List<AuthDTO> getUsers();
 
+
     boolean signIn(AuthDTO authDTO);
 }
