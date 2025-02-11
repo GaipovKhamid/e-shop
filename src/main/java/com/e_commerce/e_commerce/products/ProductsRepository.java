@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProductsRepository extends JpaRepository<ProductsEntity, Long> {
-    boolean existsByProductName(String productName);
+    boolean existsByProductName(String productId);
 
     Optional<ProductsEntity> findByIdAndDeletedAtIsNull(Long id);
 
@@ -20,7 +20,7 @@ public interface ProductsRepository extends JpaRepository<ProductsEntity, Long> 
     @Query("""
             select new com.e_commerce.e_commerce.products.ProductsDTO(
             product.id,
-            product.productName,
+            product.productId,
             product.category.id,
             product.category.name
             ) 

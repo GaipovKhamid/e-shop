@@ -22,7 +22,7 @@ public class ProductsEntity extends BaseEntity {
 
     @Column
     private Long quantity;
-
+    
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;

@@ -3,7 +3,7 @@ package com.e_commerce.e_commerce.Cart;
 public class CartDto {
     private Long id;
     private Long userId;
-    private String productName;
+    private Long productId;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class CartDto {
         this.userId = userId;
     }
 
-    public String getProductName() {
-        return productName;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setProductId(Long  productId) {
+        this.productId = productId;
     }
 }

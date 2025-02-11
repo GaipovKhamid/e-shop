@@ -12,8 +12,8 @@ public class CartController {
     @Autowired
     CartService cartService;
 
-    @PostMapping("/add/{id}")
-    public ResponseEntity<CartDto> create(@PathVariable("id") CartDto cartDto){
+    @PostMapping("/add")
+    public ResponseEntity<CartDto> create(@RequestBody CartDto cartDto){
         return ResponseEntity.ok(cartService.addProductToCart(cartDto));
     }
 

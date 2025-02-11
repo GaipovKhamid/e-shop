@@ -12,11 +12,19 @@ public class CartEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne
+    @Column(name = "product_id")
+    private Long productId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private ProductsEntity products;
 
-    @OneToOne
-    private AuthEntity user;
+    @Column(name = "user_id")
+    private Long userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private AuthEntity authEntity;
 
     public long getId() {
         return id;
@@ -24,6 +32,14 @@ public class CartEntity extends BaseEntity {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public ProductsEntity getProducts() {
@@ -34,11 +50,19 @@ public class CartEntity extends BaseEntity {
         this.products = products;
     }
 
-    public AuthEntity getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(AuthEntity user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public AuthEntity getAuthEntity() {
+        return authEntity;
+    }
+
+    public void setAuthEntity(AuthEntity authEntity) {
+        this.authEntity = authEntity;
     }
 }
