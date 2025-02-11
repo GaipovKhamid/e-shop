@@ -20,7 +20,7 @@ public class CartEntity extends BaseEntity {
     private ProductsEntity products;
 
     @Column(name = "user_id")
-    private Long userId;
+    private Long userId;  // Здесь мы убираем дублирование логического имени
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)

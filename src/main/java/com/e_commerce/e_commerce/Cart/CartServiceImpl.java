@@ -22,7 +22,7 @@ public class CartServiceImpl implements CartService {
         entity.setProductId(cartDto.getProductId());
         entity.setUserId(cartDto.getUserId());
 
-        if (entity.getProducts().getQuantity() == 0) {
+        if (entity.getProducts().getQuantity() <= 0) {
             throw new ResourceNotFoundException(entity.getProducts().getProductName() + " qolmadi");
         }
         repository.save(entity);
