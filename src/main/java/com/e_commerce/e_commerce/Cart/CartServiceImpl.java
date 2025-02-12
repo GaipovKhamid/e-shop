@@ -1,10 +1,10 @@
 package com.e_commerce.e_commerce.Cart;
 
-import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
 import com.e_commerce.e_commerce.products.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,10 +21,8 @@ public class CartServiceImpl implements CartService {
         CartEntity entity = new CartEntity();
         entity.setProductId(cartDto.getProductId());
         entity.setUserId(cartDto.getUserId());
+        entity.setCreatedAt(LocalDateTime.now());
 
-        if (entity.getProducts().getQuantity() <= 0) {
-            throw new ResourceNotFoundException(entity.getProducts().getProductName() + " qolmadi");
-        }
         repository.save(entity);
         cartDto.setId(entity.getId());
 
