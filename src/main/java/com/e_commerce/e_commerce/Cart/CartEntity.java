@@ -4,9 +4,11 @@ import com.e_commerce.e_commerce.Login.AuthEntity;
 import com.e_commerce.e_commerce.common.BaseEntity;
 import com.e_commerce.e_commerce.products.ProductsEntity;
 import jakarta.persistence.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "buy_operations")
+@EntityListeners(AuditingEntityListener.class)
 public class CartEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

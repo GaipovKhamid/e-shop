@@ -1,6 +1,5 @@
 package com.e_commerce.e_commerce.Cart;
 
-import com.e_commerce.e_commerce.products.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,6 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
     @Autowired
     CartRepository repository;
-
-    @Autowired
-    ProductsRepository productsRepository;
-
     @Override
     public CartDto addProductToCart(CartDto cartDto) {
         CartEntity entity = new CartEntity();
