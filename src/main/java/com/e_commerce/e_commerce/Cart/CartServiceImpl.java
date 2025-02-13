@@ -18,6 +18,7 @@ public class CartServiceImpl implements CartService {
         entity.setUserId(cartDto.getUserId());
         entity.setCreatedAt(LocalDateTime.now());
 
+        System.out.println(cartDto.toString());
         repository.save(entity);
         cartDto.setId(entity.getId());
 

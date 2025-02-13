@@ -28,4 +28,22 @@ public class CartDto {
     public void setProductId(Long  productId) {
         this.productId = productId;
     }
+
+    public CartDto() {
+    }
+
+    public CartDto(Long id, Long userId, Long productId) {
+        this.id = id;
+        this.userId = userId;
+        this.productId = productId;
+    }
+
+    @Override
+    public String toString() {
+        return "CartDto{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", productId=" + productId +
+                '}';
+    }
 }

@@ -22,18 +22,6 @@ public class ProductsEntity extends BaseEntity {
 
     @Column
     private Long quantity;
-    
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
-
-    public CategoryEntity getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
-    }
 
     public Long getId() {
         return id;
@@ -75,6 +63,5 @@ public class ProductsEntity extends BaseEntity {
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
-        this.category = category;
     }
 }

@@ -10,6 +10,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "buy_operations")
 @EntityListeners(AuditingEntityListener.class)
 public class CartEntity extends BaseEntity {
+
+    @Override
+    public String toString() {
+        return "CartEntity{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", products=" + products +
+                ", userId=" + userId +
+                ", authEntity=" + authEntity +
+                '}';
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -66,5 +78,16 @@ public class CartEntity extends BaseEntity {
 
     public void setAuthEntity(AuthEntity authEntity) {
         this.authEntity = authEntity;
+    }
+
+    public CartEntity(long id, Long productId, ProductsEntity products, Long userId, AuthEntity authEntity) {
+        this.id = id;
+        this.productId = productId;
+        this.products = products;
+        this.userId = userId;
+        this.authEntity = authEntity;
+    }
+
+    public CartEntity() {
     }
 }

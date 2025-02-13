@@ -14,7 +14,8 @@ public class CartController {
 
     @PostMapping("/add")
     public ResponseEntity<CartDto> create(@RequestBody CartDto cartDto){
-        return ResponseEntity.ok(cartService.addProductToCart(cartDto));
+        CartDto r = cartService.addProductToCart(cartDto);
+        return ResponseEntity.ok(r);
     }
 
     @GetMapping("/all")
