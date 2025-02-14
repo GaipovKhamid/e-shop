@@ -18,29 +18,16 @@ public class PaymentEntity extends BaseEntity {
     @JoinColumn(name = "cart_id", insertable = false, updatable = false)
     private CartEntity CartEntity;
 
-    @Column(name = "prices")
-    private Double prices;
-
     @Column
-    private Integer cardNum;
+    private String cardNum;
 
-    @Column
-    private PaidStatus status;
 
-    public PaidStatus getStatus() {
-        return status;
-    }
-
-    public Integer getCardNum() {
+    public String getCardNum() {
         return cardNum;
     }
 
-    public void setCardNum(Integer cardNum) {
+    public void setCardNum(String cardNum) {
         this.cardNum = cardNum;
-    }
-
-    public void setStatus(PaidStatus status) {
-        this.status = status;
     }
 
     public Long getId() {
@@ -65,13 +52,5 @@ public class PaymentEntity extends BaseEntity {
 
     public void setCartEntity(CartEntity cartEntity) {
         CartEntity = cartEntity;
-    }
-
-    public Double getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Double prices) {
-        this.prices = prices;
     }
 }

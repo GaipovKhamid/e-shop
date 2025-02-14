@@ -1,33 +1,23 @@
 package com.e_commerce.e_commerce.Payment;
 
 public class PaymentDto {
-    private int id;
+    private Long id;  // Changed to Long
     private Long cartId;
-    private Long prices;
-    private PaidStatus status;
-    private Integer cardNum;
+    private String cardNum;  // Changed to String to store card numbers as strings
 
-    public Integer getCardNum() {
+    public String getCardNum() {
         return cardNum;
     }
 
-    public void setCardNum(Integer cardNum) {
+    public void setCardNum(String cardNum) {
         this.cardNum = cardNum;
     }
 
-    public PaidStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PaidStatus status) {
-        this.status = status;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -37,13 +27,5 @@ public class PaymentDto {
 
     public void setCartId(Long cartId) {
         this.cartId = cartId;
-    }
-
-    public Long getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Long prices) {
-        this.prices = prices;
     }
 }
