@@ -21,6 +21,27 @@ public class PaymentEntity extends BaseEntity {
     @Column
     private String cardNum;
 
+    @Column
+    private String cardType;
+
+    @Column
+    private PaidStatus status;
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public PaidStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PaidStatus status) {
+        this.status = status;
+    }
 
     public String getCardNum() {
         return cardNum;
