@@ -1,6 +1,9 @@
 package com.e_commerce.e_commerce.Payment;
 
+import com.e_commerce.e_commerce.Cart.CartEntity;
+import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
+import com.e_commerce.e_commerce.products.ProductsEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public PaymentDto createPay(PaymentDto dto) {
         PaymentEntity paymentEntity = new PaymentEntity();
+        ProductsEntity productsEntity = new ProductsEntity();
+        CartEntity cartEntity = new CartEntity();
 
         if (dto.getCardNum() == null || dto.getCardNum().length() != 16) {
             throw new ResourceNotFoundException("You have to enter real card number.");
@@ -22,8 +27,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         paymentEntity.setCartId(dto.getCartId());
         paymentEntity.setCardNum(dto.getCardNum());
-        paymentEntity.setStatus(PaidStatus.PAID);
-
+        productsEntity.setPrice(productsEntity.getPrice());
         if (paymentEntity.getCardNum().startsWith("8600")) {
             paymentEntity.setCardType("UzCard");
         }
@@ -34,9 +38,8 @@ public class PaymentServiceImpl implements PaymentService {
             paymentEntity.setCardType("Visa");
         }
 
-        if (paymentEntity.getStatus().equals(PaidStatus.PAID)) {
-            throw new ResourceNotFoundException("You have already paid the card.");
-        }
+        paymentEntity.setStatus(PaidStatus.PAID);
+
         paymentEntity.setCreatedAt(LocalDateTime.now());
 
         paymentRepository.save(paymentEntity);

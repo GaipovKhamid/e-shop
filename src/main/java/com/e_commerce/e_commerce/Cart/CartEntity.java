@@ -1,6 +1,7 @@
 package com.e_commerce.e_commerce.Cart;
 
 import com.e_commerce.e_commerce.Login.AuthEntity;
+import com.e_commerce.e_commerce.Payment.PaidStatus;
 import com.e_commerce.e_commerce.common.BaseEntity;
 import com.e_commerce.e_commerce.products.ProductsEntity;
 import jakarta.persistence.*;
@@ -10,17 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Table(name = "buy_operations")
 @EntityListeners(AuditingEntityListener.class)
 public class CartEntity extends BaseEntity {
-
-    @Override
-    public String toString() {
-        return "CartEntity{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", products=" + products +
-                ", userId=" + userId +
-                ", authEntity=" + authEntity +
-                '}';
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +29,17 @@ public class CartEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private AuthEntity authEntity;
+
+    @Column
+    private PaidStatus status;
+
+    public PaidStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PaidStatus status) {
+        this.status = status;
+    }
 
     public long getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.e_commerce.e_commerce.Cart;
 
+import com.e_commerce.e_commerce.Payment.PaidStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,8 @@ public class CartServiceImpl implements CartService {
         entity.setProductId(cartDto.getProductId());
         entity.setUserId(cartDto.getUserId());
         entity.setCreatedAt(LocalDateTime.now());
+        entity.setStatus(PaidStatus.DONT_PAID);
 
-        System.out.println(cartDto.toString());
         repository.save(entity);
         cartDto.setId(entity.getId());
 
