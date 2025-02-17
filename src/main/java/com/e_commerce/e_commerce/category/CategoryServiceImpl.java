@@ -1,14 +1,15 @@
 package com.e_commerce.e_commerce.Category;
 
-import com.e_commerce.e_commerce.Login.AuthEntity;
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +23,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDTO> getAll() {
-        Iterable<CategoryEntity> iterator = categoryRepository.findAll();
-        List<CategoryDTO> list = new LinkedList<>();
-        for (CategoryEntity entity : iterator) {
-            CategoryDTO dto = new CategoryDTO();
-            dto.setId(entity.getId());
-            dto.setName(entity.getName());
-            list.add(dto);
-        }
-
-        return list;
+    public ListDto<CategoryDTO> getAll(Pageable pageable) {
+        List<CategoryDTO> categoryDTOList = categoryRepository.findAll(pageable).getContent().stream()
+                .map(categoryEntity ->
+                        CategoryDTO.builder()
+                                .id(categoryEntity.getId())
+                                .name(categoryEntity.getName())
+                                .build()
+                )
+                .toList();
+        return new ListDto<>(categoryDTOList);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryEntity findById(Long id) {
 
         return categoryRepository.findByIdAndDeletedAtIsNull(id)
-                .orElseThrow(()-> new ResourceNotFoundException(id.toString()));
+                .orElseThrow(() -> new ResourceNotFoundException(id.toString()));
     }
 
     @Override

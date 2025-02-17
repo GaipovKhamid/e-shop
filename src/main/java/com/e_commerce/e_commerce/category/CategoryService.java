@@ -1,12 +1,14 @@
 package com.e_commerce.e_commerce.Category;
 
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import org.springframework.data.domain.Pageable;
+
 
 @Service
 public interface CategoryService {
-    List<CategoryDTO> getAll();
+    ListDto<CategoryDTO> getAll(Pageable pageable);
 
     CategoryDTO create(CategoryDTO categoryDTO);
 

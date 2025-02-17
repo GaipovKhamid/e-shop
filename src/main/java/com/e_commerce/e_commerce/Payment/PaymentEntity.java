@@ -22,16 +22,19 @@ public class PaymentEntity extends BaseEntity {
     private String cardNum;
 
     @Column
-    private String cardType;
+    @Enumerated(EnumType.STRING)
+    private CartType cardType;
+
 
     @Column
+    @Enumerated(EnumType.STRING)  //todo
     private PaidStatus status;
 
-    public String getCardType() {
+    public CartType getCardType() {
         return cardType;
     }
 
-    public void setCardType(String cardType) {
+    public void setCardType(CartType cardType) {
         this.cardType = cardType;
     }
 

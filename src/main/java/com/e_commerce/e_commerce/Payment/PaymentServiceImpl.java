@@ -1,18 +1,17 @@
 package com.e_commerce.e_commerce.Payment;
 
 import com.e_commerce.e_commerce.Cart.CartEntity;
-import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
 import com.e_commerce.e_commerce.products.ProductsEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
 @Service
+@RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    @Autowired
-    private PaymentRepository paymentRepository;
+    private final PaymentRepository paymentRepository;
 
 
     @Override
@@ -28,14 +27,15 @@ public class PaymentServiceImpl implements PaymentService {
         paymentEntity.setCartId(dto.getCartId());
         paymentEntity.setCardNum(dto.getCardNum());
         productsEntity.setPrice(productsEntity.getPrice());
-        if (paymentEntity.getCardNum().startsWith("8600")) {
-            paymentEntity.setCardType("UzCard");
+
+        if (paymentEntity.getCardNum().startsWith(CartType.UZCARD.getStartNum())) {
+            paymentEntity.setCardType(CartType.UZCARD);
         }
-        if (paymentEntity.getCardNum().startsWith("9860")) {
-            paymentEntity.setCardType("Humo");
+        if (paymentEntity.getCardNum().startsWith(CartType.HUMO.getStartNum())) {
+            paymentEntity.setCardType(CartType.HUMO);
         }
-        if (paymentEntity.getCardNum().startsWith("4216")) {
-            paymentEntity.setCardType("Visa");
+        if (paymentEntity.getCardNum().startsWith(CartType.VISA.getStartNum())) {
+            paymentEntity.setCardType(CartType.VISA);
         }
 
         paymentEntity.setStatus(PaidStatus.PAID);

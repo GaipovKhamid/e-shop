@@ -1,6 +1,8 @@
 package com.e_commerce.e_commerce.Cart;
 
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,8 @@ public class CartController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CartDto>> all(){
-        return ResponseEntity.ok(cartService.viewAll());
+    public ResponseEntity<ListDto<CartDto>> all(Pageable pageable){
+        return ResponseEntity.ok(cartService.viewAll(pageable));
     }
 
 }

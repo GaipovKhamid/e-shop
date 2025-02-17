@@ -1,9 +1,11 @@
 package com.e_commerce.e_commerce.Login;
 
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
 import com.e_commerce.e_commerce.exceptions.Successful;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -81,17 +83,16 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<AuthDTO> getUsers() {
-        Iterable<AuthEntity> iterator = loginRepository.findAll(); //iterable = for each da aylantirish uchun royihatni retunr atadi
-        List<AuthDTO> list = new LinkedList<>();
-        for (AuthEntity entity : iterator) {
-            AuthDTO dto = new AuthDTO();
-            dto.setId(entity.getId());
-            dto.setEmail(entity.getEmail());
-            dto.setPassword(entity.getPassword());
-            list.add(dto);
-        }
-        return list;
+    public ListDto<AuthDTO> getUsers(Pageable pageable) {
+        List<AuthDTO> authDTOList = loginRepository.findAll(pageable).getContent().stream()
+                .map(authEntity ->
+                        AuthDTO.builder()
+                                .id(authEntity.getId())
+                                .email(authEntity.getEmail())
+                                .password(authEntity.getPassword())
+                                .build())
+                .toList();
+        return new ListDto<>(authDTOList);
     }
 
     @Override
@@ -101,7 +102,6 @@ public class AuthServiceImpl implements AuthService {
 
         if (StringUtils.hasText(loginEntity.getEmail()) && loginEntity.getEmail().equals(authDTO.getEmail())) {
             if (StringUtils.hasText(loginEntity.getPassword()) && loginEntity.getPassword().equals(authDTO.getPassword())) {
-                throw new Successful("Login successful");
             } else {
                 throw new BadRequestException("Passwords do not match");
             }

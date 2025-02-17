@@ -12,10 +12,10 @@ public class AuthEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(length = 60, nullable = false, unique = true)
     private String email;
 
-    @Column
+    @Column(length = 50, nullable = false)
     private String password;
 
     public Long getId() {

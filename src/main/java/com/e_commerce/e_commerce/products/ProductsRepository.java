@@ -14,8 +14,4 @@ public interface ProductsRepository extends JpaRepository<ProductsEntity, Long> 
     boolean existsByProductName(String productId);
 
     Optional<ProductsEntity> findByIdAndDeletedAtIsNull(Long id);
-
-    List<ProductsEntity> findAllByDeletedAtIsNull();
-
-
 }

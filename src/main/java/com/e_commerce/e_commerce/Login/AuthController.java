@@ -1,6 +1,8 @@
 package com.e_commerce.e_commerce.Login;
 
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +33,8 @@ public class AuthController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<AuthDTO>> getAll() {
-        return ResponseEntity.ok(authService.getUsers());
+    public ResponseEntity<ListDto<AuthDTO>> getAll(Pageable pageable) {
+        return ResponseEntity.ok(authService.getUsers(pageable));
     }
 
     @PostMapping("/signIn")

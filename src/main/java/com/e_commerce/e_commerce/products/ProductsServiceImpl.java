@@ -1,15 +1,14 @@
 package com.e_commerce.e_commerce.products;
 
 import com.e_commerce.e_commerce.Category.CategoryService;
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -49,12 +48,18 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public Page<ProductsDTO> getProducts(Pageable pageable) {
-//        return productsRepository.getPagetest(pageable);
-        return null;
+    public ListDto<ProductsDTO> getProducts(Pageable pageable) {
+        List<ProductsDTO> productsDTOList = productsRepository.findAll(pageable).getContent().stream()
+                .map(productsEntity ->
+                        ProductsDTO.builder()
+                                .id(productsEntity.getId())
+                                .productName(productsEntity.getProductName())
+                                .quantity(productsEntity.getQuantity())
+                                .price(productsEntity.getPrice())
+                                .build())
+                .toList();
+        return new ListDto<>(productsDTOList);
     }
-
-    //map set list
 
     @Override
     public ProductsDTO updateProduct(Long id, ProductsDTO productsDTO) {
@@ -82,22 +87,5 @@ public class ProductsServiceImpl implements ProductsService {
 
         entity.setDeletedAt(LocalDateTime.now());
         productsRepository.save(entity);
-    }
-
-    @Override
-    public List<ProductsDTO> getUsers() {
-        var iterator = productsRepository.findAllByDeletedAtIsNull(); //iterable = for each da aylantirish uchun royihatni retunr atadi
-        List<ProductsDTO> list = new LinkedList<>();
-        for (ProductsEntity entity : iterator) {
-            ProductsDTO dto = new ProductsDTO();
-            dto.setId(entity.getId());
-            dto.setProductName(entity.getProductName());
-            dto.setPrice(entity.getPrice());
-            dto.setQuantity(entity.getQuantity());
-
-            list.add(dto);
-        }
-
-        return list;
     }
 }

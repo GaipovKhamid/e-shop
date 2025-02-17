@@ -1,11 +1,14 @@
 package com.e_commerce.e_commerce.Category;
 
 
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+
 
 @RequestMapping("/category")
 @RestController
@@ -20,8 +23,8 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<CategoryDTO>> getAllCategory() {
-        return ResponseEntity.ok(categoryService.getAll());
+    public ResponseEntity<ListDto<CategoryDTO>> getAllCategory(Pageable pageable) {
+        return ResponseEntity.ok(categoryService.getAll(pageable));
     }
 
     @PutMapping("/update/{name}")

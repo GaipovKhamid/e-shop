@@ -1,17 +1,19 @@
 package com.e_commerce.e_commerce.Cart;
 
 import com.e_commerce.e_commerce.Payment.PaidStatus;
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired
     CartRepository repository;
+
     @Override
     public CartDto addProductToCart(CartDto cartDto) {
         CartEntity entity = new CartEntity();
@@ -27,14 +29,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartDto> viewAll() {
-        Iterable<CartEntity> iterator = repository.findAll();
-        List<CartDto> list = new LinkedList<>();
-        for (CartEntity entity : iterator) {
-            CartDto dto = new CartDto();
-            dto.setId(entity.getId());
-            list.add(dto);
-        }
-        return list;
+    public ListDto<CartDto> viewAll(Pageable pageable) {
+        List<CartDto> cartDtoList = repository.findAll(pageable).getContent().stream()
+                .map(cartEntity ->
+                        CartDto.builder()
+                                .id(cartEntity.getId())
+                                .status(cartEntity.getStatus())
+                                .productId(cartEntity.getProductId())
+                                .userId(cartEntity.getUserId())
+                                .build())
+                .toList();
+        return new ListDto<>(cartDtoList);
     }
 }
