@@ -1,6 +1,7 @@
 package com.e_commerce.e_commerce.products;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -8,20 +9,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/prod")
 @RestController
+@RequiredArgsConstructor
 public class ProductsController {
 
-    @Autowired
     ProductsService productsService;
 
     @PostMapping("/add")
     public ResponseEntity<ProductsDTO> create(@RequestBody ProductsDTO productsDTO) {
         return ResponseEntity.ok(productsService.addProduct(productsDTO));
     }
-//
-//    @GetMapping("/all")
-//    public ResponseEntity<List<ProductsDTO>> getAllProducts() {
-//        return ResponseEntity.ok(productsService.getProducts());
-//    }
 
     @GetMapping("/all-page")
     public ResponseEntity<ListDto<ProductsDTO>> getAllProductsPage(Pageable pageable) {

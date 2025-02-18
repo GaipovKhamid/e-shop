@@ -1,10 +1,10 @@
 package com.e_commerce.e_commerce.products;
 
-import com.e_commerce.e_commerce.category.CategoryService;
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +12,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProductsServiceImpl implements ProductsService {
 
     private final ProductsRepository productsRepository;
 
-    private final CategoryService categoryService;
-
-    public ProductsServiceImpl(ProductsRepository productsRepository, CategoryService categoryService) {
-        this.productsRepository = productsRepository;
-        this.categoryService = categoryService;
-    }
 
     @Override
     public ProductsDTO addProduct(ProductsDTO productsDTO) {
         if (productsRepository.existsByProductName(productsDTO.getProductName())) {
             throw new DuplicateException(productsDTO.getProductName() + " already exists");
         }
-        var category = categoryService.findById(productsDTO.getCategoryId());
 
         ProductsEntity productsEntity = new ProductsEntity();
         productsEntity.setProductName(productsDTO.getProductName());
@@ -88,4 +82,5 @@ public class ProductsServiceImpl implements ProductsService {
         entity.setDeletedAt(LocalDateTime.now());
         productsRepository.save(entity);
     }
+
 }
