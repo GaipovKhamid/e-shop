@@ -1,7 +1,6 @@
-package com.e_commerce.e_commerce.Category;
+package com.e_commerce.e_commerce.category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 

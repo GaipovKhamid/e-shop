@@ -1,7 +1,7 @@
 package com.e_commerce.e_commerce.products;
 
 
-import com.e_commerce.e_commerce.Category.CategoryEntity;
+import com.e_commerce.e_commerce.category.CategoryEntity;
 import com.e_commerce.e_commerce.common.BaseEntity;
 import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.Login;
+package com.e_commerce.e_commerce.login;
 
 import com.e_commerce.e_commerce.common.BaseEntity;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.Cart;
+package com.e_commerce.e_commerce.cart;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.data.domain.Pageable;

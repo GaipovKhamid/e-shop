@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.Category;
+package com.e_commerce.e_commerce.category;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.stereotype.Service;

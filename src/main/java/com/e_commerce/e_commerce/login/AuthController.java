@@ -1,12 +1,10 @@
-package com.e_commerce.e_commerce.Login;
+package com.e_commerce.e_commerce.login;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping("/api")
 @RestController("test123")

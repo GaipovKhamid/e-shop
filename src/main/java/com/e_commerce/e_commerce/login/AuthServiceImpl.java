@@ -1,27 +1,23 @@
-package com.e_commerce.e_commerce.Login;
+package com.e_commerce.e_commerce.login;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
-import com.e_commerce.e_commerce.exceptions.Successful;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final AuthRepository loginRepository;
-
-    public AuthServiceImpl(AuthRepository loginRepository) {
-        this.loginRepository = loginRepository;
-    }
 
     @Override
     public AuthDTO createUser(AuthDTO authDTO) {

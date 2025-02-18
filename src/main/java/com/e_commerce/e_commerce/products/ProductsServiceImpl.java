@@ -1,6 +1,6 @@
 package com.e_commerce.e_commerce.products;
 
-import com.e_commerce.e_commerce.Category.CategoryService;
+import com.e_commerce.e_commerce.category.CategoryService;
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;

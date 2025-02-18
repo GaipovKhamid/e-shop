@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.Login;
+package com.e_commerce.e_commerce.login;
 
 import lombok.Builder;
 import lombok.Getter;

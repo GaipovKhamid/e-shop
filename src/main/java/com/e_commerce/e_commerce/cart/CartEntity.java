@@ -1,7 +1,7 @@
-package com.e_commerce.e_commerce.Cart;
+package com.e_commerce.e_commerce.cart;
 
-import com.e_commerce.e_commerce.Login.AuthEntity;
-import com.e_commerce.e_commerce.Payment.PaidStatus;
+import com.e_commerce.e_commerce.login.AuthEntity;
+import com.e_commerce.e_commerce.payment.PaidStatus;
 import com.e_commerce.e_commerce.common.BaseEntity;
 import com.e_commerce.e_commerce.products.ProductsEntity;
 import jakarta.persistence.*;

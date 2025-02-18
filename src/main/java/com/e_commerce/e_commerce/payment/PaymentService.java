@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.Payment;
+package com.e_commerce.e_commerce.payment;
 
 import org.springframework.stereotype.Service;
 

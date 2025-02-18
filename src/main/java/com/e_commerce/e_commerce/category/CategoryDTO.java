@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.Category;
+package com.e_commerce.e_commerce.category;
 
 import lombok.Builder;
 import lombok.Getter;

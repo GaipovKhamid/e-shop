@@ -1,4 +1,4 @@
-package com.e_commerce.e_commerce.Cart;
+package com.e_commerce.e_commerce.cart;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
