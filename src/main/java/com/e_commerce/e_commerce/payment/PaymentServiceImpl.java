@@ -1,7 +1,9 @@
 package com.e_commerce.e_commerce.payment;
 
 import com.e_commerce.e_commerce.cart.CartEntity;
+import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
+import com.e_commerce.e_commerce.products.ProductsDTO;
 import com.e_commerce.e_commerce.products.ProductsEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,6 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentDto createPay(PaymentDto dto) {
         PaymentEntity paymentEntity = new PaymentEntity();
         ProductsEntity productsEntity = new ProductsEntity();
-        CartEntity cartEntity = new CartEntity();
 
         if (dto.getCardNum() == null || dto.getCardNum().length() != 16) {
             throw new ResourceNotFoundException("You have to enter real card number.");
@@ -46,5 +47,6 @@ public class PaymentServiceImpl implements PaymentService {
         dto.setId(paymentEntity.getId());
         return dto;
     }
+
 
 }

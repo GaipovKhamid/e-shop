@@ -9,7 +9,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +31,6 @@ public class ProductsServiceImpl implements ProductsService {
         productsEntity.setPrice(productsDTO.getPrice());
         productsEntity.setQuantity(productsDTO.getQuantity());
         productsEntity.setCreatedAt(LocalDateTime.now());
-
 
         if (productsEntity.getPrice() == null) {
             throw new BadRequestException("Price cannot be null");

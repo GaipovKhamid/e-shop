@@ -2,7 +2,7 @@ package com.e_commerce.e_commerce.products;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProductsController {
 
-    ProductsService productsService;
+    private final ProductsService productsService;
 
     @PostMapping("/add")
     public ResponseEntity<ProductsDTO> create(@RequestBody ProductsDTO productsDTO) {
@@ -34,4 +34,5 @@ public class ProductsController {
         productsService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
+
 }

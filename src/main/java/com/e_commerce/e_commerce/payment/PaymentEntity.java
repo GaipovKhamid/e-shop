@@ -3,7 +3,11 @@ package com.e_commerce.e_commerce.payment;
 import com.e_commerce.e_commerce.cart.CartEntity;
 import com.e_commerce.e_commerce.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "payment")
 public class PaymentEntity extends BaseEntity {
@@ -27,54 +31,9 @@ public class PaymentEntity extends BaseEntity {
 
 
     @Column
-    @Enumerated(EnumType.STRING)  //todo
+    @Enumerated(EnumType.STRING)
     private PaidStatus status;
 
-    public CartType getCardType() {
-        return cardType;
-    }
 
-    public void setCardType(CartType cardType) {
-        this.cardType = cardType;
-    }
 
-    public PaidStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PaidStatus status) {
-        this.status = status;
-    }
-
-    public String getCardNum() {
-        return cardNum;
-    }
-
-    public void setCardNum(String cardNum) {
-        this.cardNum = cardNum;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
-    }
-
-    public CartEntity getCartEntity() {
-        return CartEntity;
-    }
-
-    public void setCartEntity(CartEntity cartEntity) {
-        CartEntity = cartEntity;
-    }
 }
