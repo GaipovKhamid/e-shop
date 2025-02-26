@@ -45,21 +45,20 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     public ListDto<ProductsDTO> searchProduct(ProductsDTO productsDTO, Pageable pageable) {
-        List<ProductsDTO> productsDTOList = Collections.emptyList(); // Если ничего не найдено, будет пустой список
+        List<ProductsDTO> productsDTOList = Collections.emptyList();
 
         if (productsDTO.getProductName() != null) {
             Page<ProductsEntity> productsPage = productsRepository.findByProductName(productsDTO.getProductName(), pageable);
             productsDTOList = productsPage.getContent().stream()
                     .map(productsEntity ->
                             ProductsDTO.builder()
+                                    .id(productsEntity.getId())
                                     .productName(productsEntity.getProductName())
                                     .price(productsEntity.getPrice())
-                                    .quantity(productsEntity.getQuantity()) // Ошибка была тут, ты брал quantity из DTO, а не из Entity
+                                    .quantity(productsEntity.getQuantity())
                                     .build())
-                    .toList(); 
-
+                    .toList();
         }
-
 
         return new ListDto<>(productsDTOList);
     }

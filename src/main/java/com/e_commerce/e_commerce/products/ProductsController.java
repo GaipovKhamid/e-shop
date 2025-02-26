@@ -36,14 +36,8 @@ public class ProductsController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<ListDto<ProductsDTO>> searchProduct(
-            @RequestParam String productName, Pageable pageable) {
-
-        ProductsDTO productsDTO = ProductsDTO.builder().productName(productName).build();
-
-        ListDto<ProductsDTO> result = productsService.searchProduct(productsDTO, pageable);
-
-        return ResponseEntity.ok(result);
+    public ResponseEntity<ListDto<ProductsDTO>> searchProduct(@RequestParam String productName, ProductsDTO dto, Pageable pageable) {
+        return ResponseEntity.ok(productsService.searchProduct(dto, pageable));
     }
 
 }
