@@ -5,11 +5,13 @@ import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -40,6 +42,26 @@ public class ProductsServiceImpl implements ProductsService {
         productsDTO.setId(productsEntity.getId());
 
         return productsDTO;
+    }
+
+    public ListDto<ProductsDTO> searchProduct(ProductsDTO productsDTO, Pageable pageable) {
+        List<ProductsDTO> productsDTOList = Collections.emptyList(); // Если ничего не найдено, будет пустой список
+
+        if (productsDTO.getProductName() != null) {
+            Page<ProductsEntity> productsPage = productsRepository.findByProductName(productsDTO.getProductName(), pageable);
+            productsDTOList = productsPage.getContent().stream()
+                    .map(productsEntity ->
+                            ProductsDTO.builder()
+                                    .productName(productsEntity.getProductName())
+                                    .price(productsEntity.getPrice())
+                                    .quantity(productsEntity.getQuantity()) // Ошибка была тут, ты брал quantity из DTO, а не из Entity
+                                    .build())
+                    .toList(); 
+
+        }
+
+
+        return new ListDto<>(productsDTOList);
     }
 
     @Override

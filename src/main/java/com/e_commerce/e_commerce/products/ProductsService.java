@@ -15,4 +15,6 @@ public interface ProductsService {
 
     void deleteUser(Long id);
 
+    ListDto<ProductsDTO> searchProduct(ProductsDTO productsDTO, Pageable pageable);
+
 }
