@@ -28,5 +28,4 @@ public class ProductsEntity extends BaseEntity {
 
     @Column
     private Long quantity;
-
 }

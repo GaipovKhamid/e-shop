@@ -2,7 +2,6 @@ package com.e_commerce.e_commerce.products;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ public class ProductsController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ProductsDTO> deleteProduct(@PathVariable("id") Long id) {
-        productsService.deleteUser(id);
+        productsService.deleteProduct(id);
         return ResponseEntity.ok().build();
     }
 
@@ -39,5 +38,6 @@ public class ProductsController {
     public ResponseEntity<ListDto<ProductsDTO>> searchProduct(@RequestParam String productName, ProductsDTO dto, Pageable pageable) {
         return ResponseEntity.ok(productsService.searchProduct(dto, pageable));
     }
+
 
 }
