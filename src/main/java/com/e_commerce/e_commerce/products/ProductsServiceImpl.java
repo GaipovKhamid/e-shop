@@ -99,7 +99,7 @@ public class ProductsServiceImpl implements ProductsService {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteProduct(Long id) {
         ProductsEntity entity = productsRepository.findByIdAndDeletedAtIsNull(id).orElseThrow(() -> new ResourceNotFoundException(id.toString()));
 
         entity.setDeletedAt(LocalDateTime.now());
