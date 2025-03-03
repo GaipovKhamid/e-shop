@@ -1,6 +1,7 @@
 package com.e_commerce.e_commerce.products;
 
 
+import com.e_commerce.e_commerce.category.CategoryEntity;
 import com.e_commerce.e_commerce.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,5 +29,12 @@ public class ProductsEntity extends BaseEntity {
 
     @Column
     private Long quantity;
+
+    @Column(name = "category_name")
+    private String categoryName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_name", insertable = false, updatable = false)
+    private CategoryEntity categoryEntity;
 
 }

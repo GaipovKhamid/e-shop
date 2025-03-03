@@ -1,5 +1,6 @@
 package com.e_commerce.e_commerce.products;
 
+import com.e_commerce.e_commerce.category.CategoryDTO;
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
@@ -105,4 +106,34 @@ public class ProductsServiceImpl implements ProductsService {
         productsRepository.save(entity);
     }
 
+    @Override
+    public ListDto<ProductsDTO> searchProductByCategory(ProductsDTO productsDTO, Pageable pageable) {
+        if (productsDTO.getProductName() != null) {
+            throw new BadRequestException(productsDTO.getProductName() + " not found");
+        }
+
+        List<ProductsDTO> productsDTOList = Collections.emptyList();
+
+        if (productsDTO.getProductName() != null) {
+            Page<ProductsEntity> productsPage = productsRepository.findProductByCategory(productsDTO.getCategoryName(), pageable);
+            productsDTOList = productsPage.getContent().stream()
+                    .map(productsEntity ->
+                            ProductsDTO.builder()
+                                    .id(productsEntity.getId())
+                                    .productName(productsEntity.getProductName())
+                                    .price(productsEntity.getPrice())
+                                    .quantity(productsEntity.getQuantity())
+                                    .categoryName(productsEntity.getCategoryName())
+                                    .build())
+                    .toList();
+        }
+
+        return new ListDto<>(productsDTOList);
+
+    }
+
+    @Override
+    public ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO productsDTO, Pageable pageable) {
+        return null;
+    }
 }

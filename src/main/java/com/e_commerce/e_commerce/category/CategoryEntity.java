@@ -1,8 +1,13 @@
 package com.e_commerce.e_commerce.category;
 
 import com.e_commerce.e_commerce.common.BaseEntity;
+import com.e_commerce.e_commerce.products.ProductsEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "category")
 public class CategoryEntity extends BaseEntity {
@@ -13,19 +18,12 @@ public class CategoryEntity extends BaseEntity {
     @Column
     private String name;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "products_name")
+    private String productsName;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "products_name", insertable = false, updatable = false)
+    private ProductsEntity productsEntity;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

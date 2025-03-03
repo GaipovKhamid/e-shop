@@ -1,5 +1,6 @@
 package com.e_commerce.e_commerce.products;
 
+import com.e_commerce.e_commerce.category.CategoryDTO;
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import org.springframework.data.domain.Pageable;
 
@@ -17,4 +18,7 @@ public interface ProductsService {
 
     ListDto<ProductsDTO> searchProduct(ProductsDTO productsDTO, Pageable pageable);
 
+    ListDto<ProductsDTO> searchProductByCategory(ProductsDTO productsDTO, Pageable pageable);
+
+    ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO productsDTO, Pageable pageable);
 }
