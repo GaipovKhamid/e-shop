@@ -21,7 +21,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthDTO createUser(AuthDTO authDTO) {
-        if (loginRepository.existsByEmail(authDTO.getEmail())) {
+        var validForLowerCase = authDTO.getEmail().toLowerCase();
+
+        if (loginRepository.existsByEmail(validForLowerCase)) {
             throw new DuplicateException("Email already in use");
         }
 
