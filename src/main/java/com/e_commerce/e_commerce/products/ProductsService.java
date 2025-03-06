@@ -16,7 +16,5 @@ public interface ProductsService {
 
     ListDto<ProductsDTO> searchProduct(ProductsDTO productsDTO, Pageable pageable);
 
-    ListDto<ProductsDTO> searchProductByCategory(ProductsDTO productsDTO, Pageable pageable);
-
     ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO productsDTO, Pageable pageable);
 }

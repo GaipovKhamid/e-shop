@@ -35,6 +35,7 @@ public class AuthServiceImpl implements AuthService {
         if (entity.getDeletedAt() != null) {
             throw new DuplicateException("Email already in use");
         }
+
         loginRepository.save(entity);
         authDTO.setId(entity.getId());
 

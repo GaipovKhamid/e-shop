@@ -106,34 +106,22 @@ public class ProductsServiceImpl implements ProductsService {
         productsRepository.save(entity);
     }
 
-    @Override
-    public ListDto<ProductsDTO> searchProductByCategory(ProductsDTO productsDTO, Pageable pageable) {
-        if (productsDTO.getProductName() != null) {
-            throw new BadRequestException(productsDTO.getProductName() + " not found");
-        }
-
-        List<ProductsDTO> productsDTOList = Collections.emptyList();
-
-        if (productsDTO.getProductName() != null) {
-            Page<ProductsEntity> productsPage = productsRepository.findProductByCategory(productsDTO.getCategoryName(), pageable);
-            productsDTOList = productsPage.getContent().stream()
-                    .map(productsEntity ->
-                            ProductsDTO.builder()
-                                    .id(productsEntity.getId())
-                                    .productName(productsEntity.getProductName())
-                                    .price(productsEntity.getPrice())
-                                    .quantity(productsEntity.getQuantity())
-                                    .categoryName(productsEntity.getCategoryName())
-                                    .build())
-                    .toList();
-        }
-
-        return new ListDto<>(productsDTOList);
-
-    }
 
     @Override
     public ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO productsDTO, Pageable pageable) {
-        return null;
+        List<ProductsDTO> productsPricesList = Collections.emptyList();
+
+        if (productsDTO.getPrice() != null) {
+            Page<ProductsEntity> pricesPage = productsRepository.findByPriceBetween(productsDTO.getPrice(), productsDTO.getPrice(), pageable);
+            productsPricesList = pricesPage.getContent().stream()
+                    .map(productsEntity ->
+                            ProductsDTO.builder()
+                                    .productName(productsEntity.getProductName())
+                                    .price(productsEntity.getPrice())
+                                    .quantity(productsEntity.getQuantity())
+                                    .build())
+                    .toList();
+        }
+        return new ListDto<>(productsPricesList);
     }
 }
