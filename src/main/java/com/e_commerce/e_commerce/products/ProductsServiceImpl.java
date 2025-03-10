@@ -1,11 +1,9 @@
 package com.e_commerce.e_commerce.products;
 
-import com.e_commerce.e_commerce.category.CategoryDTO;
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,14 +12,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ProductsServiceImpl implements ProductsService {
 
     private final ProductsRepository productsRepository;
 
+    public ProductsServiceImpl(ProductsRepository productsRepository) {
+        this.productsRepository = productsRepository;
+    }
 
     @Override
     public ProductsDTO addProduct(ProductsDTO productsDTO) {
@@ -33,35 +33,34 @@ public class ProductsServiceImpl implements ProductsService {
         productsEntity.setProductName(productsDTO.getProductName());
         productsEntity.setPrice(productsDTO.getPrice());
         productsEntity.setQuantity(productsDTO.getQuantity());
-        productsEntity.setCreatedAt(LocalDateTime.now());
+         productsEntity.setCreatedAt(LocalDateTime.now());
 
         if (productsEntity.getPrice() == null) {
             throw new BadRequestException("Price cannot be null");
         }
 
         productsRepository.save(productsEntity);
-        productsDTO.setId(productsEntity.getId());
+        productsDTO.setId(productsEntity.getId()); //todo
 
         return productsDTO;
     }
 
     public ListDto<ProductsDTO> searchProduct(ProductsDTO productsDTO, Pageable pageable) {
-        List<ProductsDTO> productsDTOList = Collections.emptyList();
+        List<ProductsDTO> productsDTOS = Optional.ofNullable(productsDTO.getProductName())
+                .map(p_name -> {
+                    Page<ProductsEntity> productsPage = productsRepository.findByProductName(p_name, pageable);
+                    return productsPage.getContent().stream()
+                            .map(productsEntity ->
+                                    ProductsDTO.builder()
+                                            .id(productsEntity.getId())
+                                            .productName(productsEntity.getProductName())
+                                            .price(productsEntity.getPrice())
+                                            .quantity(productsEntity.getQuantity())
+                                            .build())
+                            .toList();
+                }).orElse(new ArrayList<>());
 
-        if (productsDTO.getProductName() != null) {
-            Page<ProductsEntity> productsPage = productsRepository.findByProductName(productsDTO.getProductName(), pageable);
-            productsDTOList = productsPage.getContent().stream()
-                    .map(productsEntity ->
-                            ProductsDTO.builder()
-                                    .id(productsEntity.getId())
-                                    .productName(productsEntity.getProductName())
-                                    .price(productsEntity.getPrice())
-                                    .quantity(productsEntity.getQuantity())
-                                    .build())
-                    .toList();
-        }
-
-        return new ListDto<>(productsDTOList);
+        return new ListDto<>(productsDTOS);
     }
 
     @Override
@@ -93,7 +92,7 @@ public class ProductsServiceImpl implements ProductsService {
         }
 
         productsRepository.save(entity);
-        productsDTO.setId(entity.getId());
+        productsDTO.setId(entity.getId()); //todo change
 
         return productsDTO;
     }
@@ -108,7 +107,7 @@ public class ProductsServiceImpl implements ProductsService {
 
 
     @Override
-    public ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO productsDTO, Pageable pageable) {
+    public ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO productsDTO, Double price1, Double price2, Pageable pageable) {
         List<ProductsDTO> productsPricesList = Collections.emptyList();
 
         if (productsDTO.getPrice() != null) {
