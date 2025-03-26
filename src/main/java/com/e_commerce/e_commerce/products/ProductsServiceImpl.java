@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 @Service
@@ -54,7 +55,7 @@ public class ProductsServiceImpl implements ProductsService {
                     .map(productsEntity ->
                             ProductsDTO.builder()
                                     .id(productsEntity.getId())
-                                    .productName(productsEntity.getProductName())
+                                    .productName(productsEntity.getProductName().toLowerCase())
                                     .price(productsEntity.getPrice())
                                     .quantity(productsEntity.getQuantity())
                                     .build())

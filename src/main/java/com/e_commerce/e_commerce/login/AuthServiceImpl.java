@@ -4,6 +4,7 @@ import com.e_commerce.e_commerce.common.dtos.ListDto;
 import com.e_commerce.e_commerce.exceptions.BadRequestException;
 import com.e_commerce.e_commerce.exceptions.DuplicateException;
 import com.e_commerce.e_commerce.exceptions.ResourceNotFoundException;
+import jakarta.persistence.Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class AuthServiceImpl implements AuthService {
         AuthEntity entity = new AuthEntity();
         entity.setEmail(authDTO.getEmail());
         entity.setPassword(authDTO.getPassword());
+        entity.setRole(authDTO.getRole());
         entity.setCreatedAt(LocalDateTime.now());
 
         if (entity.getDeletedAt() != null) {

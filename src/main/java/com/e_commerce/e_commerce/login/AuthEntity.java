@@ -2,9 +2,13 @@ package com.e_commerce.e_commerce.login;
 
 import com.e_commerce.e_commerce.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
 public class AuthEntity extends BaseEntity {
@@ -18,27 +22,7 @@ public class AuthEntity extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String password;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
