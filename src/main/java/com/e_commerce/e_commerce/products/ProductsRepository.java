@@ -15,8 +15,6 @@ public interface ProductsRepository extends JpaRepository<ProductsEntity, Long> 
 
     Page<ProductsEntity> findByProductName(String productName, Pageable pageable);
 
-    Page<ProductsEntity> findProductByCategory(String categoryName, Pageable pageable);
-
     Page<ProductsEntity> findByPriceBetween(Double lower, Double higher, Pageable pageable);
 
 }

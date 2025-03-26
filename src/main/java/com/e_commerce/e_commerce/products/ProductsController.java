@@ -2,6 +2,7 @@ package com.e_commerce.e_commerce.products;
 
 import com.e_commerce.e_commerce.common.dtos.ListDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/prod")
 @RestController
-@RequiredArgsConstructor
 public class ProductsController {
 
-    private final ProductsService productsService;
+    @Autowired
+    ProductsService productsService;
 
     @PreAuthorize("hasRole('SELLER')")
     @PostMapping("/add")
@@ -43,8 +44,11 @@ public class ProductsController {
     }
 
     @GetMapping("/byPrice")
-    public ResponseEntity<ListDto<ProductsDTO>> searchByPrice(@RequestParam Double price, ProductsDTO dto, Pageable pageable) {
-        return ResponseEntity.ok(productsService.searchProductByTwoPrices(dto, pageable));
+    public ResponseEntity<ListDto<ProductsDTO>> searchByPrice(@RequestParam Double price1,
+                                                              @RequestParam Double price2,
+                                                              ProductsDTO productsDTO,
+                                                              Pageable pageable) {
+        return ResponseEntity.ok(productsService.searchProductByTwoPrices(productsDTO, price1, price2, pageable));
     }
 
 }
