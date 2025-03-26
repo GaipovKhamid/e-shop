@@ -43,12 +43,5 @@ public class ProductsController {
         return ResponseEntity.ok(productsService.searchProduct(dto, pageable));
     }
 
-    @GetMapping("/byPrice")
-    public ResponseEntity<ListDto<ProductsDTO>> searchByPrice(@RequestParam Double price1,
-                                                              @RequestParam Double price2,
-                                                              ProductsDTO productsDTO,
-                                                              Pageable pageable) {
-        return ResponseEntity.ok(productsService.searchProductByTwoPrices(productsDTO, price1, price2, pageable));
-    }
 
 }

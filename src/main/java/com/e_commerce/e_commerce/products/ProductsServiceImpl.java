@@ -107,22 +107,4 @@ public class ProductsServiceImpl implements ProductsService {
         productsRepository.save(entity);
     }
 
-
-    @Override
-    public ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO productsDTO, Pageable pageable) {
-        List<ProductsDTO> productsPricesList = Collections.emptyList();
-
-        if (productsDTO.getPrice() != null) {
-            Page<ProductsEntity> pricesPage = productsRepository.findByPriceBetween(productsDTO.getPrice(), productsDTO.getPrice(), pageable);
-            productsPricesList = pricesPage.getContent().stream()
-                    .map(productsEntity ->
-                            ProductsDTO.builder()
-                                    .productName(productsEntity.getProductName())
-                                    .price(productsEntity.getPrice())
-                                    .quantity(productsEntity.getQuantity())
-                                    .build())
-                    .toList();
-        }
-        return new ListDto<>(productsPricesList);
-    }
 }

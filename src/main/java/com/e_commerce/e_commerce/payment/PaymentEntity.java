@@ -33,7 +33,4 @@ public class PaymentEntity extends BaseEntity {
     @Column
     @Enumerated(EnumType.STRING)
     private PaidStatus status;
-
-
-
 }

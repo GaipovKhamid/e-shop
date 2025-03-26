@@ -15,6 +15,4 @@ public interface ProductsService {
     void deleteProduct(Long id);
 
     ListDto<ProductsDTO> searchProduct(ProductsDTO productsDTO, Pageable pageable);
-
-    ListDto<ProductsDTO> searchProductByTwoPrices(ProductsDTO dto, Double price1, Double price2, Pageable pageable);
 }
