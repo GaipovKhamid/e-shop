@@ -31,7 +31,6 @@ public class AuthServiceImpl implements AuthService {
         AuthEntity entity = new AuthEntity();
         entity.setEmail(authDTO.getEmail());
         entity.setPassword(authDTO.getPassword());
-        entity.setRole(authDTO.getRole());
         entity.setCreatedAt(LocalDateTime.now());
 
         if (entity.getDeletedAt() != null) {

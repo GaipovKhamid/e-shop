@@ -22,7 +22,4 @@ public class AuthEntity extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String password;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Role role;
 }
